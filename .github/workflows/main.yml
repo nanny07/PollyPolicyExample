@@ -1,0 +1,25 @@
+name: Build Console app
+ 
+on: [push]
+ 
+jobs:
+  build:
+ 
+    runs-on: windows-latest
+ 
+    steps:
+    - uses: actions/checkout@v1
+      name: Checkout Code
+     
+    - name: setup-msbuild
+      uses: microsoft/setup-msbuild@v1
+       
+    - name: Setup NuGet
+      uses: NuGet/setup-nuget@v1.0.2
+     
+    - name: Restore NuGet Packages
+      run: nuget restore ConsoleAppPolly.sln
+ 
+    - name: Build and Publish Web App
+      run: msbuild ConsoleAppPolly.sln /p:Configuration=Release
+ 
